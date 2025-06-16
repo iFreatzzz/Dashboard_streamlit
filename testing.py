@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 import streamlit as st
-import joblib
+import pickle
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from sklearn.model_selection import train_test_split
@@ -219,11 +219,11 @@ def main():
     
     # Standardize input features
     num_samples, seq_len, num_features = X.shape
-    input_scaler = joblib.load(scaler_paths["CNN-LSTM"]["input"])
+    input_scaler = pickle.load(scaler_paths["CNN-LSTM"]["input"])
     X_scaled = input_scaler.transform(X.reshape(-1, num_features)).reshape(num_samples, seq_len, num_features)
 
     # Standardize targets
-    target_scaler = joblib.load(scaler_paths["CNN-LSTM"]["target"])
+    target_scaler = pickle.load(scaler_paths["CNN-LSTM"]["target"])
     y_scaled = target_scaler.transform(y)
 
     # Split data
@@ -363,8 +363,8 @@ def main():
 
         try:
             model = load_model(model_paths[selected_model])
-            target_scaler = joblib.load(scaler_paths[selected_model]["target"])
-            input_scaler = joblib.load(scaler_paths[selected_model]["input"])
+            target_scaler = pickle.load(scaler_paths[selected_model]["target"])
+            input_scaler = pickle.load(scaler_paths[selected_model]["input"])
             st.sidebar.success(f"{selected_model} model loaded successfully")
         except Exception as e:
             st.error(f"Error loading model or scaler: {str(e)}")
