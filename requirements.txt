@@ -1,4 +1,7 @@
-joblib
-plotlit
-sklearn
+streamlit
+pandas
+numpy
+plotly
+scikit-learn
 tensorflow
+joblib
